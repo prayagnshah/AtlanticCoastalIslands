@@ -64,8 +64,18 @@ As previously mentioned, I had troubles installing ArcPy in Anaconda, so I ran t
 3.	Paste into scratch and fill in the RED coloured items. `conda create --name myclone --clone myenv`
 Ex: `conda create --name arcgispropy3_clone --clone arcgispro-py3`
 
-### 1.4 - Prep Polygon Coordinates
+### 1.4 - PREPARE POLYGON COORDINATES
 The following example is for Newfoundland, but the preparation has also been completed for all of the Atlantic Canadian provinces, such as New Brunswick, P.E.I, and Quebec. 
 The polygons in Newfoundland_Fishnet_Polygon_Points.csv are prepared for Newfoundland, but if you would like to run this program on another area, a similar file will need to be created for that area.
 Create a fishnet over the area of interest where each square in the fishnet is no larger than 100 kilometres squared (10 kilometres by 10 kilometres). Newfoundland_Fishnet.png shows the fishnet in Newfoundland_Fishnet_Polygon_Points.csv.
 
+### 1.5 - PREPARE THE SUBSET OF POLYGONS TO PROCESS
+Within the area to be processed, there are different areas that have clear satellite imagery from different dates. I spent some time in GEE exploring Sentintel-2 imagery results for different regions around Newfoundland and came up with a polygon layer dividing the province. The date and an ID should be associated with each of the polygons in the layer, which still needs to be done.
+This part of the process should be greatly improved. Right now, this triage of polygons into different areas is done manually. 
+
+### 1.6 - EXPORT POLYGONS TO POINTS
+Now that the fishnet is created, they will need to be organized by date of the satellite imagery dates polygons (Newfoundland Polygons by Date).
+1.	Add a new field called "Date" as a Text field type. Highlight a Newfoundland Polygons by Date feature. Using Select by Location, the input feature: the fishnet polygons, intersect the selecting features: Newfoundland Polygons by Date. The result is the highlighted fishnet polygons that intersect with the highlighted polygon date. Open the attribute table and click on calculate field. In brackets, insert the date of said polygon that intersects. Example: "October 19, 2019". The result will only highlight the populated field. Repeat for all dates.
+2.	In the geoprocessing pane, open the Feature Vertices to Point tool where the input feature is the fishnet that inlcudes the field with the associated polygon dates.
+3.	In the new layer, add two fields: X and Y, with a Double field type. Save. Left click on the new field and Calculate geometry where the X and Y fields are the X and Y coordinates in Decimal Degrees.
+4.	Export the polygons to a CSV where each row of the file is one point. Each row must consist of the shape ID of the point (which polygon it belongs to), the x coordinate, and the y coordinate of the point. See Newfoundland_Fishnet_Polygon_Points.csv for an example of what the CSV file should look like. The first shape ID must be 0.
