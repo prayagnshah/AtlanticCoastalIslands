@@ -11,10 +11,12 @@ There are two Python scripts for this process:
 2.	Process_GeoJSON.py - Processes the output GeoJSON files from Prepare_GeoJSON.py using ArcPy to create a single polyline Feature Class of the extracted coastline result.
 
 * Prepare_GeoJSON.py was duplicated for each province and customized based on their polygon attributes and is renamed as follows:
-•	Prepare_GeoJSON_NFLD.py
-•	Prepare_GeoJSON_PEI.py
-•	Prepare_GeoJSON_NB.py
-•	Prepare_GeoJSON_QC.py
+•	`Prepare_GeoJSON_NFLD.py`
+•	`Prepare_GeoJSON_PEI.py`
+•	`Prepare_GeoJSON_NB.py`
+•	`Prepare_GeoJSON_QC.py`
+
+## At this stage, `Prepare_GeoJSON_NFLD.py` and `Prepare_GeoJSON_PEI.py` require review. From step #1 to #4 outlines the methodology and associated direction, while Step #5 outlines further improvement and recommendations to be reviewed.
 
 ## 1 - SET UP
 Before the scripts can be run, there are a number of set up steps that need to be performed.
@@ -176,8 +178,8 @@ This section outlines current issues, improvements to be made, exploration to be
 - Add an option to delete files only needed in intermediate steps. (File cleanup built into program run).
 
 #### `Prepare_GeoJSON_PEI.py`
-In addition to the above:
-- 
+- All above improvements including
+- It is picking up the cooridnates and number of polygons to process in the csv., but not processing them with the satelitte imagery. 
 
 `Process_GeoJSON.py`
 - User input validation.
