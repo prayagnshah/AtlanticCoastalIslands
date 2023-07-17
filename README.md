@@ -110,3 +110,32 @@ This program is not perfect or robust enough in its error/exception handling. If
 - Is the `coastsat` profile enabled in the Anaconda shell terminal?
 - Do you need to renew the GEE token?
 
+## 3.0 - EXPLORE THE GEOJSON RESULTS
+The results of Prepare_GeoJSON.py can be explored before further processing.
+
+### 3.1 - OPEN IN QGIS
+The easiest way that I have found to explore the results in the GeoJSON files is by opening them in QGIS. Open QGIS and create a new project with a basemap. Walkthrough for adding a basemap to a QGIS project. Add the resulting GeoJSON files to the project to look at the results. The current GeoJSON results are a single polyline for each polygon processed. This means that any line segments in the results are connected with other lines, so there is more post-processing work to be done to remove these extra lines.
+
+### 3.2 - GOOD RESULTS
+Most of the results are very successful and outline the islands, shore, and lakes accurately at a 1:10,000 scale.
+
+### 3.3 - BAD RESULTS - BUSY IMAGES
+Some of the polygons have undesirable results. I found some cases of polygons that had another jpeg downloaded in the results that was a subset of the polygon area that had only cloud cover that created an area of the result full of points. These polygons should be investigated to remove these extra images by altering some combination of the CoastSat settings and the user inputs. 
+
+### 3.4 - BAD RESULTS - MISSING RESULTS
+There are other areas of the original polygon fishnet that are missing in the results completely. Although the input fishnet was a perfect grid of squares, the results seem to skew these perfect squares a bit and create diagonal lines, in one section particularly. This area with missing data needs to be investigated to see why there is data missing and how to fill the gap of missing data.
+
+### 3.5 - BAD RESULTS - IMAGE BOUNDARIES
+For some of the results, there is a straight line that is created that is unrelated to the coastline. I found that these lines are caused by lighter lines along the edges of the images downloaded from GEE. Because there is a lighter edge around some of the borders of some of the images, the coastline detection process sees these changes in colour as changes between water and land and identify the areas as coastline when they are not. This is an issue because these line segments are not part of the coastline and will cause issues when trying to merge all of the coastlines together. I'm not sure the correct approach to solve this problem. One option could be to address the lightness in the images during processing by changing some of the CoastSat code itslef to not process the image pixels around the border. This could cause some problems though by missing legitamite coastline data that is along the edges. However, this could be solved by overlapping the polygons of the fishnet a little bit to account for the edges that would not be considered. This solution would have to be explored more to verify that it would work. Another option would be to clean up the coastline extracted in post-processing. Investigation would need to be done to see if there is a tool that can detect straight points in order to isolate the areas that need to be removed. There could also be another aproach to find these line segments. Another option would be to remove these lines manually, but this would be the most time consuming approach.
+
+## 4 - RUNNING THE SCRIPT TO PROCESS THE GEOJSON
+To run the script, navigate to the cloned repo folder containing the `Process_GeoJSON.py` script and run `python .\Process_GeoJSON.py`. Note that I had problems setting up an environment in Anaconda that would allow me to use ArcPy, but to make it work in tandem in an Anaconda Shell, you need to clone the arcgispro-py3 environment. You cannot modify the default Pythonenvironmnent (`arcgispro-py3`), so you must clone and activiate a new environment.  
+1. If ArcGIS Pro is installed on your computer, you have a python command promnpt. Right click on the python command prompt, and open file location. 
+2. Run as Administrator
+3. Run `conda create --name myclone --clone myenv` , but replace `myclone` with your environment clone name, and replace `myenv` with your enviroinment that you are cloning. 
+
+### 4.1 - USER INPUTS
+The user will be asked for many inputs. If no input is provided, a default value for that input is used. The default value is displayed to the user for each input. The inputs are as follows:
+1. `FOLDER NAME`: The name to use for the output results. It is recommended to use the same name as the GeoJSON folder, but it is not required.
+2. `GEOJSON FOLDER PATH`: The path of the folder containing the GeoJSON files to process.
+3. `GEO DATABASE PATH`: The path of the geodatabase where the resulting Feature Classes will be created.
