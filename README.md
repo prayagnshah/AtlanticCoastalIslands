@@ -1,5 +1,6 @@
 # Atlantic Coastal Islands
-Created by Anneke van der Laan for EPM GIS in March and April 2023. Edited by Leah Fulton in May 2023.
+Created by Anneke van der Laan for EPM GIS in March and April 2023, under https://github.com/annekecvdl/epm_contract/tree/main (V.1.5). 
+Edited by Leah Fulton in May 2023 (V.1.6).
 
 This project uses the CoastSat open-source software toolkit (version 2.1) to extract the coastline of input areas from Sentintel-2 satellite imagery.
 
