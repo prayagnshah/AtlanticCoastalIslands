@@ -155,3 +155,30 @@ The outputs of the script are multiple Feature Classes:
 - <FOLDER_NAME>_DISSOLVE
 - <FOLDER_NAME>_SPATIAL_JOIN
 - <FOLDER_NAME>_RESULT
+
+## 5 - NEXT PHASE
+This section outlines current issues, improvements to be made, exploration to be done, more code to write, as well as ideas that could be considered beyond the scope of the current project.
+
+### 5.1 - ISSUES
+- The fishnet should be tweaked to remove polygons that don't include coastline. (1.4)
+- Some polygon results include extra images that interfere with the coastline results. (3.3)
+- There are data gaps along diagonal lines/in a triangular area that need to be investigated. (3.4)
+- Some image edges are detected as shorelines. (3.5)
+- Lakes need to be removed from the results.
+
+### 5.2 - IMPROVEMENTS - FOR REVIEW
+`Prepare_GeoJSON.py`
+- Improved error and exception messaging and segmentation.
+- User input validation.
+- Add a logger to allow for logging filters and writing output to a document instead of the console.
+- Add more logging statements that create more of a dialog and explanation as the program runs.
+- Set some of the CoastSat settings with user inputs.
+- Add an option to delete files only needed in intermediate steps. (File cleanup built into program run).
+- Prepare 
+
+`Process_GeoJSON.py`
+- User input validation.
+- Improve performance.
+
+Other:
+- Use tools to triage the fishnet polygons into subsets by date.
