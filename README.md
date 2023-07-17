@@ -167,14 +167,17 @@ This section outlines current issues, improvements to be made, exploration to be
 - Lakes need to be removed from the results.
 
 ### 5.2 - IMPROVEMENTS - FOR REVIEW
-`Prepare_GeoJSON.py`
+#### `Prepare_GeoJSON_NFLD.py`
 - Improved error and exception messaging and segmentation.
 - User input validation.
 - Add a logger to allow for logging filters and writing output to a document instead of the console.
 - Add more logging statements that create more of a dialog and explanation as the program runs.
 - Set some of the CoastSat settings with user inputs.
 - Add an option to delete files only needed in intermediate steps. (File cleanup built into program run).
-- Prepare 
+
+#### `Prepare_GeoJSON_PEI.py`
+In addition to the above:
+- 
 
 `Process_GeoJSON.py`
 - User input validation.
