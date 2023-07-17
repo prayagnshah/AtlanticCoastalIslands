@@ -11,10 +11,10 @@ There are two Python scripts for this process:
 2.	Process_GeoJSON.py - Processes the output GeoJSON files from Prepare_GeoJSON.py using ArcPy to create a single polyline Feature Class of the extracted coastline result.
 
 * Prepare_GeoJSON.py was duplicated for each province and customized based on their polygon attributes and is renamed as follows:
-•	`Prepare_GeoJSON_NFLD.py`
-•	`Prepare_GeoJSON_PEI.py`
-•	`Prepare_GeoJSON_NB.py`
-•	`Prepare_GeoJSON_QC.py`
+- `Prepare_GeoJSON_NFLD.py`
+- `Prepare_GeoJSON_PEI.py`
+- `Prepare_GeoJSON_NB.py`
+- `Prepare_GeoJSON_QC.py`
 
 ### At this stage, `Prepare_GeoJSON_NFLD.py` and `Prepare_GeoJSON_PEI.py` require review. From step #1 to #4 outlines the methodology and associated direction, while Step #5 outlines further improvement and recommendations to be reviewed.
 
