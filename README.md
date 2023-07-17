@@ -61,5 +61,11 @@ As previously mentioned, I had troubles installing ArcPy in Anaconda, so I ran t
 
 1.	Right click on Python Command Prompt, and open File location
 2.	Run as Administer
-3.	Paste into scratch and fill in the RED coloured items. conda create --name myclone --clone myenv
-Ex: conda create `--name arcgispropy3_clone --clone arcgispro-py3`
+3.	Paste into scratch and fill in the RED coloured items. `conda create --name myclone --clone myenv`
+Ex: `conda create --name arcgispropy3_clone --clone arcgispro-py3`
+
+### 1.4 - Prep Polygon Coordinates
+The following example is for Newfoundland, but the preparation has also been completed for all of the Atlantic Canadian provinces, such as New Brunswick, P.E.I, and Quebec. 
+The polygons in Newfoundland_Fishnet_Polygon_Points.csv are prepared for Newfoundland, but if you would like to run this program on another area, a similar file will need to be created for that area.
+Create a fishnet over the area of interest where each square in the fishnet is no larger than 100 kilometres squared (10 kilometres by 10 kilometres). Newfoundland_Fishnet.png shows the fishnet in Newfoundland_Fishnet_Polygon_Points.csv.
+
