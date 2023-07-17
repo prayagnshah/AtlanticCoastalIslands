@@ -148,10 +148,10 @@ The next step is to remove the long line segments that connect different pieces 
 
 ### 4.3 - OUTPUTS
 The outputs of the script are multiple Feature Classes:
-•	<FOLDER_NAME>_<NUMBER> (one for each processed GeoJSON file)
-•	<FOLDER_NAME>_MERGE
-•	<FOLDER_NAME>_SPLIT
-•	<FOLDER_NAME>_BUFFER
-•	<FOLDER_NAME>_DISSOLVE
-•	<FOLDER_NAME>_SPATIAL_JOIN
-•	<FOLDER_NAME>_RESULT
+- <FOLDER_NAME>_<NUMBER> (one for each processed GeoJSON file)
+- <FOLDER_NAME>_MERGE
+- <FOLDER_NAME>_SPLIT
+- <FOLDER_NAME>_BUFFER
+- <FOLDER_NAME>_DISSOLVE
+- <FOLDER_NAME>_SPATIAL_JOIN
+- <FOLDER_NAME>_RESULT
