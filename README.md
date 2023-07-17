@@ -16,7 +16,7 @@ There are two Python scripts for this process:
 •	`Prepare_GeoJSON_NB.py`
 •	`Prepare_GeoJSON_QC.py`
 
-## At this stage, `Prepare_GeoJSON_NFLD.py` and `Prepare_GeoJSON_PEI.py` require review. From step #1 to #4 outlines the methodology and associated direction, while Step #5 outlines further improvement and recommendations to be reviewed.
+### At this stage, `Prepare_GeoJSON_NFLD.py` and `Prepare_GeoJSON_PEI.py` require review. From step #1 to #4 outlines the methodology and associated direction, while Step #5 outlines further improvement and recommendations to be reviewed.
 
 ## 1 - SET UP
 Before the scripts can be run, there are a number of set up steps that need to be performed.
