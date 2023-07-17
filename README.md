@@ -146,3 +146,12 @@ The user will be asked for many inputs. If no input is provided, a default value
 The next step is to remove the long line segments that connect different pieces of the coastline but are not parts of the coastline result. This is done by using an Update Cursor on <FOLDER_NAME>_SPLIT to remove any lines that have a Shape Length of longer than 40. This is an arbitrary number and should probably be tweaked.
 3. Now, the goal is to merge line segments together that are connected. To do this, a buffer is created around each line segment using the Buffer tool. A buffer of 2 metres is used, which is, again, an arbitrary number but works. It could be tweaked. The resulting buffer called <FOLDER_NAME>_BUFFER is then dissolved using the Dissolve tool according to any overlapping buffers, meaning buffers that are close to each other will be dissolved into one and given an ID. Using the Spatial Join tool, the line segments and the dissolved buffers are joined, resulting in the line segments each being associated with one of the dissolved buffers. The result is <FOLDER_NAME>_SPATIAL_JOIN. By dissolving this spatial join result using the Dissolve tool, we end up with the desired result in <FOLDER_NAME>_RESULT.
 
+### 4.3 - OUTPUTS
+The outputs of the script are multiple Feature Classes:
+•	<FOLDER_NAME>_<NUMBER> (one for each processed GeoJSON file)
+•	<FOLDER_NAME>_MERGE
+•	<FOLDER_NAME>_SPLIT
+•	<FOLDER_NAME>_BUFFER
+•	<FOLDER_NAME>_DISSOLVE
+•	<FOLDER_NAME>_SPATIAL_JOIN
+•	<FOLDER_NAME>_RESULT
