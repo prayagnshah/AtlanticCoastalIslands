@@ -4,7 +4,7 @@
 # Program:      Coastal Extraction from Sentinel-2 Satellite Imagery to GeoJSON using
 #               the CoastSat Toolkit
 # File Name:    Prepare_GeoJSON.py
-# Author:       Anneke van der Laan, updated by Leah Fulton
+# Author:       Anneke van der Laan & updated by Leah Fulton
 # Version:      1.5
 # Date:         June 08, 2023
 # Purpose:      EPM GIS Contract
