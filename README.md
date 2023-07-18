@@ -170,31 +170,31 @@ This section outlines current issues, improvements to be made, exploration to be
 
 ### 5.2 - IMPROVEMENTS - FOR REVIEW
 #### `Prepare_GeoJSON_NFLD.py`
-1. Improved error and exception messaging and segmentation:
+##### 1. Improved error and exception messaging and segmentation:
 - Identify critical sections of your code where exceptions might occur.
 - Use try-except blocks to catch specific exceptions in those sections.
 - Provide informative error messages that explain the issue and how to resolve it.
 - Consider using custom exceptions to handle specific scenarios, making error handling more precise.
-2. User input validation:
+##### 2. User input validation:
 - Define the expected format and valid ranges for each user input.
 - Use functions to validate user inputs against these criteria.
 - Continuously prompt the user until valid input is provided.
 - Handle potential edge cases or unexpected input to prevent program crashes.
-3. Add a logger to allow for logging filters and writing output to a document instead of the console:
+##### 3. Add a logger to allow for logging filters and writing output to a document instead of the console:
 - Import the Python logging module to use for logging purposes.
 - Set up a logger with desired log level and file handler (for writing logs to a file).
 - Use logging statements throughout your code to record important events and information.
 - Customize the log format to include relevant details such as timestamp and log level.
 - Optionally, add logging filters to control which log records are emitted based on specific criteria.
-4. Add more logging statements that create more of a dialog and explanation as the program runs:
+##### 4. Add more logging statements that create more of a dialog and explanation as the program runs:
 - Insert logging statements before and after significant steps or functions.
 - Use logging to display the state of variables or important calculations.
 - Add explanatory log messages to guide users and developers through the program's execution.
-5. Set some of the CoastSat settings with user inputs:
+##### 5. Set some of the CoastSat settings with user inputs:
 - Identify which CoastSat settings can be controlled by users.
 - Ask users for input or provide command-line arguments to specify these settings.
 - Update the relevant parts of your code to use the user-provided settings.
-6. Add an option to delete files only needed in intermediate steps:
+##### 6. Add an option to delete files only needed in intermediate steps:
 - Determine which intermediate files can be safely deleted.
 - Implement a flag or input option that allows users to choose whether to perform file cleanup.
 - Provide a warning before deleting any files to prevent accidental data loss.
