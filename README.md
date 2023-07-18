@@ -22,9 +22,11 @@ Prepare_GeoJSON.py was duplicated for each province and customized based on thei
 Before the scripts can be run, there are a number of set up steps that need to be performed.
 
 ### 1.1 - CLONE THIS REPO LOCALLY
-The first step is to clone this repo locally! [How to clone a GitHub repository.](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?tool=cli)
+Before starting, make sure to clone this repository locally by following these steps: [How to clone a GitHub repository.](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?tool=cli)
 
-The first part of the project when the GeoJSON is prepared requires the CoastSat toolkit among other packages. The second half of the project when the GeoJSON is processed into Feature Classes requires the ArcPy package. If you will only be running on half of the project you only have to worry about the setup for that half. Note that I had difficulties with installing ArcPy in my Anaconda environment so I ran the `Prepare_GeoJSON.py` script in the Anaconda environment and ran the `Process_GeoJSON.py` script in my normal shell.
+The project consists of two main parts. In the first part, when preparing the GeoJSON, you'll need to set up the CoastSat toolkit along with other required packages. In the second part, when processing the GeoJSON into Feature Classes, you'll need the ArcPy package.
+
+If you plan to run only one part of the project, you can focus on setting up the dependencies for that specific half. Please note that installing ArcPy in an Anaconda environment might be challenging. If you encounter difficulties, consider running the `Prepare_GeoJSON.py` script in your Anaconda environment and the `Process_GeoJSON.py` script in your normal shell for a smoother experience.
 
 ### 1.2 - SET UP AN ANACONDA ENVIRONMENT
 
@@ -68,20 +70,22 @@ As previously mentioned, I had troubles installing ArcPy in Anaconda, so I ran t
 Ex: `conda create --name arcgispropy3_clone --clone arcgispro-py3`
 
 ### 1.4 - PREPARE POLYGON COORDINATES
-The following example is for Newfoundland, but the preparation has also been completed for all of the Atlantic Canadian provinces, such as New Brunswick, P.E.I, and Quebec. 
-The polygons in Newfoundland_Fishnet_Polygon_Points.csv are prepared for Newfoundland, but if you would like to run this program on another area, a similar file will need to be created for that area.
-Create a fishnet over the area of interest where each square in the fishnet is no larger than 100 kilometres squared (10 kilometres by 10 kilometres). Newfoundland_Fishnet.png shows the fishnet in Newfoundland_Fishnet_Polygon_Points.csv.
+The provided example is specific to Newfoundland, but the preparation has been done for all Atlantic Canadian provinces, including New Brunswick, P.E.I., and Quebec.
+The polygons in `Newfoundland_Fishnet_Polygon_Points.csv` are prepared for Newfoundland. If you intend to run the program on a different area, you'll need to create a similar file specific to that region.
+To create a fishnet over your area of interest, ensure that each square in the fishnet does not exceed 100 square kilometers (10 kilometers by 10 kilometers).
 
 ### 1.5 - PREPARE THE SUBSET OF POLYGONS TO PROCESS
-Within the area to be processed, there are different areas that have clear satellite imagery from different dates. I spent some time in GEE exploring Sentintel-2 imagery results for different regions around Newfoundland and came up with a polygon layer dividing the province. The date and an ID should be associated with each of the polygons in the layer, which still needs to be done.
-This part of the process should be greatly improved. Right now, this triage of polygons into different areas is done manually. 
+In the area to be processed, there are distinct regions with clear satellite imagery from various dates. I extensively explored Sentinel-2 imagery results using Google Earth Engine (GEE) for different regions around Newfoundland. As a result, I created a polygon layer that divides the province into these distinct areas. However, the task of associating a date and ID with each polygon in the layer is pending and needs to be completed.
+
+This particular aspect of the process requires significant improvement. Currently, the triage of polygons into different areas is done manually, which can be time-consuming and prone to errors. Enhancing this step will streamline the process, leading to more accurate and efficient results.
 
 ### 1.6 - EXPORT POLYGONS TO POINTS
-Now that the fishnet is created, they will need to be organized by date of the satellite imagery dates polygons (Newfoundland Polygons by Date).
-1.	Add a new field called "Date" as a Text field type. Highlight a Newfoundland Polygons by Date feature. Using Select by Location, the input feature: the fishnet polygons, intersect the selecting features: Newfoundland Polygons by Date. The result is the highlighted fishnet polygons that intersect with the highlighted polygon date. Open the attribute table and click on calculate field. In brackets, insert the date of said polygon that intersects. Example: "October 19, 2019". The result will only highlight the populated field. Repeat for all dates.
-2.	In the geoprocessing pane, open the Feature Vertices to Point tool where the input feature is the fishnet that inlcudes the field with the associated polygon dates.
-3.	In the new layer, add two fields: X and Y, with a Double field type. Save. Left click on the new field and Calculate geometry where the X and Y fields are the X and Y coordinates in Decimal Degrees.
-4.	Export the polygons to a CSV where each row of the file is one point. Each row must consist of the shape ID of the point (which polygon it belongs to), the x coordinate, and the y coordinate of the point. See Newfoundland_Fishnet_Polygon_Points.csv for an example of what the CSV file should look like. The first shape ID must be 0.
+To organize the fishnet polygons by the date of satellite imagery, follow these steps:
+
+1. Add a new field called "Date" as a Text field type to the Newfoundland Polygons by Date feature. Use Select by Location, with the input feature being the fishnet polygons and the selecting features being the Newfoundland Polygons by Date. This will highlight the fishnet polygons that intersect with each polygon date. Open the attribute table, click on "Calculate Field," and insert the corresponding date (e.g., "October 19, 2019") for each highlighted fishnet polygon. The result will only highlight the populated field. Repeat this process for all dates.
+2. In the geoprocessing pane, open the "Feature Vertices to Point" tool, using the fishnet with the associated polygon dates as the input feature.
+3. Add two fields, "X" and "Y," with a Double field type to the new layer. Save the changes. Left-click on the new fields and choose "Calculate Geometry" to obtain the X and Y coordinates in Decimal Degrees for each point.
+4. Export the polygons to a CSV file, where each row represents one point. Each row should include the shape ID of the point (indicating which polygon it belongs to), along with the corresponding X and Y coordinates. Refer to `Newfoundland_Fishnet_Polygon_Points.csv` for an example of how the CSV file should be structured. Ensure that the first shape ID is assigned as 0.
 
 ## 2 - RUNNING THE SCRIPT TO PREPARE THE GEOJSON
 To run the script, make sure you have run the above set up steps in an Anaconda shell and that you are navigated to the cloned repo folder containing the `Prepare_GeoJSON.py` script and run `python .\Prepare_GeoJSON.py`. Make sure the `Prepare_GeoJSON.py` script in the coastsat folder. 
@@ -116,16 +120,22 @@ This program is not perfect or robust enough in its error/exception handling. If
 The results of Prepare_GeoJSON.py can be explored before further processing.
 
 ### 3.1 - OPEN IN QGIS
-The easiest way that I have found to explore the results in the GeoJSON files is by opening them in QGIS. Open QGIS and create a new project with a basemap. Walkthrough for adding a basemap to a QGIS project. Add the resulting GeoJSON files to the project to look at the results. The current GeoJSON results are a single polyline for each polygon processed. This means that any line segments in the results are connected with other lines, so there is more post-processing work to be done to remove these extra lines.
+To explore the results in the GeoJSON files easily, follow these steps using QGIS:
+
+1. Open QGIS and create a new project, then add a basemap to provide context to your data. You can refer to a walkthrough on how to add a basemap to a QGIS project.
+2. Import the resulting GeoJSON files into the project to visualize the processed data. Each GeoJSON file represents a single polyline for each processed polygon.
+3. Keep in mind that the current GeoJSON results may contain connected line segments, resulting in additional lines that need to be removed. This implies that some post-processing work is required to clean up the data and eliminate these extra lines, ensuring accurate representation.
+
+By following these steps, you can conveniently explore and visualize the results of the GeoJSON files in QGIS. Remember to perform the necessary post-processing steps to ensure the data is free from any unwanted connected line segments.
 
 ### 3.2 - GOOD RESULTS
 Most of the results are very successful and outline the islands, shore, and lakes accurately at a 1:10,000 scale.
 
 ### 3.3 - BAD RESULTS - BUSY IMAGES
-Some of the polygons have undesirable results. I found some cases of polygons that had another jpeg downloaded in the results that was a subset of the polygon area that had only cloud cover that created an area of the result full of points. These polygons should be investigated to remove these extra images by altering some combination of the CoastSat settings and the user inputs. 
+Certain polygons in the results exhibit undesirable outcomes. During the analysis, I observed instances where a polygon contained an additional JPEG downloaded as a subset of the original area. Unfortunately, this subset was filled with points due to cloud cover. To address this issue, an investigation of these polygons is necessary to remove the extraneous images. The solution involves modifying a combination of the CoastSat settings and user inputs.
 
 ### 3.4 - BAD RESULTS - MISSING RESULTS
-There are other areas of the original polygon fishnet that are missing in the results completely. Although the input fishnet was a perfect grid of squares, the results seem to skew these perfect squares a bit and create diagonal lines, in one section particularly. This area with missing data needs to be investigated to see why there is data missing and how to fill the gap of missing data.
+Certain areas of the original polygon fishnet are completely missing in the results, raising concerns about data gaps. Despite starting with a perfect grid of squares as the input fishnet, the results appear to deviate slightly from the original squares, forming diagonal lines in specific sections. This discrepancy has led to missing data in those areas. To address this issue, a comprehensive investigation is essential to identify the root cause of the missing data. The investigation will focus on understanding why these discrepancies and data gaps occur.
 
 ### 3.5 - BAD RESULTS - IMAGE BOUNDARIES
 For some of the results, there is a straight line that is created that is unrelated to the coastline. I found that these lines are caused by lighter lines along the edges of the images downloaded from GEE. Because there is a lighter edge around some of the borders of some of the images, the coastline detection process sees these changes in colour as changes between water and land and identify the areas as coastline when they are not. This is an issue because these line segments are not part of the coastline and will cause issues when trying to merge all of the coastlines together. I'm not sure the correct approach to solve this problem. One option could be to address the lightness in the images during processing by changing some of the CoastSat code itslef to not process the image pixels around the border. This could cause some problems though by missing legitamite coastline data that is along the edges. However, this could be solved by overlapping the polygons of the fishnet a little bit to account for the edges that would not be considered. This solution would have to be explored more to verify that it would work. Another option would be to clean up the coastline extracted in post-processing. Investigation would need to be done to see if there is a tool that can detect straight points in order to isolate the areas that need to be removed. There could also be another aproach to find these line segments. Another option would be to remove these lines manually, but this would be the most time consuming approach.
