@@ -64,7 +64,7 @@ As previously mentioned, I had troubles installing ArcPy in Anaconda, so I ran t
 
 1.	Right click on Python Command Prompt, and open File location
 2.	Run as Administer
-3.	Paste into scratch and fill in the RED coloured items. `conda create --name myclone --clone myenv`
+3.	Paste into scratch and fill `conda create --name myclone --clone myenv`
 Ex: `conda create --name arcgispropy3_clone --clone arcgispro-py3`
 
 ### 1.4 - PREPARE POLYGON COORDINATES
