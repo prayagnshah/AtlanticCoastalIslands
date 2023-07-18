@@ -1,4 +1,4 @@
-# Atlantic Coastal Islands
+# Atlantic Coastal Islands using Sentinel 2 Imagery
 Created by Anneke van der Laan for EPM GIS in March and April 2023, under https://github.com/annekecvdl/epm_contract/tree/main (V.1.5). 
 Edited by Leah Fulton in May 2023 (V.1.6).
 
