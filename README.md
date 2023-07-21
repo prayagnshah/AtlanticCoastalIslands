@@ -5,8 +5,6 @@ Edited by Leah Fulton in May 2023 (V.1.6).
 This project uses the CoastSat open-source software toolkit (version 2.1) to extract the coastline of input areas from Sentintel-2 satellite imagery.
 
 There are two Python scripts for this process:
-
-There are two Python scripts for this process:
 1.	Prepare_GeoJSON.py - Extracts the coastline from Sentinel-2 imagery using the CoastSat toolkit resulting in a number of GeoJSON polyline files.*
 2.	Process_GeoJSON.py - Processes the output GeoJSON files from Prepare_GeoJSON.py using ArcPy to create a single polyline Feature Class of the extracted coastline result.
 
@@ -15,6 +13,8 @@ Prepare_GeoJSON.py was duplicated for each province and customized based on thei
 - `Prepare_GeoJSON_PEI.py`
 - `Prepare_GeoJSON_NB.py`
 - `Prepare_GeoJSON_QC.py`
+
+For the `Process_GeoJSONpy`, it is one script that is used following the preparing of data from the provincial scripts.
 
 ### At this stage, `Prepare_GeoJSON_NFLD.py` and `Prepare_GeoJSON_PEI.py` require review. From step #1 to #4 outlines the methodology and associated direction, while Step #5 outlines further improvement and recommendations to be reviewed.
 
