@@ -70,10 +70,10 @@ print("Warming up and getting ready...")
 
 import  sys
 import  os
-from    os import walk
+#from    os import walk##
 
-import  numpy as np
-import  pickle
+#import  numpy as np##
+#import  pickle##
 import  warnings
 warnings.filterwarnings("ignore")
 
@@ -81,13 +81,14 @@ import  matplotlib
 matplotlib.use('Qt5Agg')
 
 import  matplotlib.pyplot as plt
-from    matplotlib import gridspec
+#from    matplotlib import gridspec##
 plt.ion()
 
-import  pandas as pd
+#import  pandas as pd##
 
 from    datetime import datetime
-from    coastsat import SDS_download, SDS_preprocess, SDS_shoreline, SDS_tools, SDS_transects
+from collections import OrderedDict
+from    coastsat import SDS_download, SDS_preprocess, SDS_shoreline, SDS_tools#, SDS_transects ##, SDS_transects
 from    pyproj   import CRS
 from    enum     import Enum
 
@@ -96,8 +97,9 @@ print("Good to go! Let's get started.\n")
 #=======================================================================================
 # SET DEFAULT VALUES FOR USER INPUTS
 
-DEFAULT_POLYGONS_PATH = r"C:\Users\annek\Documents\CoastSat\data\PointsReady.csv"
-DEFAULT_FOLDER_NAME = "FINAL_TEST_1"
+##DEFAULT_POLYGONS_PATH = os.path.join(os.getcwd(), 'data', 'PointsReady.csv')
+DEFAULT_POLYGONS_PATH = r"C:\Users\LChamney\Documents\GitHub\AtlanticCoastalIslands\fishnet points csv\PEI_Fishnet_Points_wDate_fewPolys.csv" ##for testing
+DEFAULT_FOLDER_NAME = "TEST_1"
 
 # Satellite Options: Any subset of ['L5','L7','L8','L9','S2'] as a list
 DEFAULT_SAT_LIST = ['S2']
@@ -115,8 +117,16 @@ startTime = datetime.now()
 polySuccessCount = 0
 polyErrs = []
 
+global polygonList
+global settings
+global metadata
+global shorelineOutput
+global polygonsToProcess
+global polygonsRemaining
+
 #=======================================================================================
 # DEFINE SATELLITE DATES ENUM AND SET THE POLYGON LIST FOR EACH DATE
+# polygon lists are allowed input csv feature ids for the given SatelliteDates option
 
 # POLYGON LIST - MAY 23, 2023
 polyList_MAY23_2023 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475]
@@ -177,7 +187,7 @@ def getUserInput(desiredInput, defaultValue):
 
 # TODO: IMPROVE THE USER INPUT CHECK TO BE MORE VERSATILE
 
-def getUserYesOrNo(inputQuery):
+def getUserYesOrNo(inputQuery): ##doesn't work in PyScripter
     print("Would you like to {}? Enter 'YES' or 'NO' (or hit ENTER for 'NO').".format(inputQuery))
 
     for currInput in sys.stdin:
@@ -264,45 +274,37 @@ import csv
 
 def getPolygonsFromCSV():
     polygonCSVPath = getUserInput("POLYGON LIST CSV PATH", DEFAULT_POLYGONS_PATH)
+    polygonCSVPath = polygonCSVPath.strip('"').strip("'") #else cannot copy-paste from Windows File Explorer Copy Path
     print("CREATING POLYGON LIST FROM CSV FILE...")
-    polygonCSVFile = open(polygonCSVPath, "r")
-
-    # The shape ID of the current polygon
-    # Initialize at ID zero
-    currID = '0'
-
-    # The list of all coordinates of the current polygon
-    # Initialize empty
-    currPoly = []
+    
+    polygonDict = OrderedDict() #{shapeID:[pt,pt],} #dict of all coordinates of all polygons. Could just use regualar dict; user likely doesn't care
 
     # The resulting list of polygons (list of lists)
     global polygonList
     polygonList = []
 
-    csvreader = csv.reader(polygonCSVFile)
+    with open(polygonCSVPath,'r') as polygonCSVFile:
+        csvreader = csv.reader(polygonCSVFile)
 
-    # Skip the header row
-    next(csvreader)
+        # Skip the header row
+        next(csvreader)
 
-    for split in csvreader:
-        shapeID = split[0]
-        currPt = [(split[1]),(split[2])]
-
-        # If we're still on the same ID as the last point, add it to the current
-        # polygon that is being processed.
-        if shapeID == currID:
-            currPoly.append(currPt)
-
-        # If the ID changed, we are on a new polygon! Add the old one to the
-        # results, empty the current list, and add the current coordinates to it!
-        else:
-            polygonList.append([currID, currPoly])
-            currID = shapeID
-            currPoly = []
-            currPoly.append(currPt)
-
-    print("POLYGONS READY! CLOSING FILE.\n")
-    polygonCSVFile.close()
+        for split in csvreader:
+            if len(split) == 0: continue #handle blank row at end
+            shapeID = split[0]
+            currPt = [(split[1]),(split[2])]
+            
+            if shapeID not in polygonDict: polygonDict[shapeID] = [] #ptList
+            polygonDict[shapeID].append(currPt)
+        
+        polygonList = [[shapeID, ptList] for shapeID,ptList in polygonDict.items()] #convert to list just because that is what existing functions require
+        
+        print("POLYGONS READY! CLOSING FILE.\n")
+    
+    #Summarize results so user knows they didn't use wrong csv / make mistake in their csv creation
+    print("Num polygons extracted:",len(polygonList))
+    print("First polygon ID: ",polygonList[0][0])
+    print("Last polygon ID: ",polygonList[-1][0])
 
 #=======================================================================================
 # Function:     SET COASTSAT CONFIG
@@ -429,7 +431,7 @@ def setGeoJSONPrepInputs():
     dates = [dateSelection.startDate, dateSelection.endDate]
     print("Selected dates:",dates)
     poly_list = dateSelection.polyList
-    print("Number of polygons to process: {}\n".format(len(poly_list)))
+    print("Number of polygons to process: {}\n".format(len(poly_list))) ##incorrect; depends on CSV
     sat_list = getUserInput("SATELLITE LIST", DEFAULT_SAT_LIST)
     landsat_collection = getUserInput("COLLECTION", DEFAULT_COLLECTION)
     download_images = getUserYesOrNo("DOWNLOAD IMAGES FROM GEE")
@@ -613,7 +615,7 @@ def exportGeoJson():
 # Returns:      True or false indicating if the polygon should be processed or not.
 
 def processPolygonCheck(shapeId):
-    polyList = inputs['poly_list']
+    polyList = inputs['poly_list'] ##via setGeoJSONPrepInputs via getSatelliteDateChoice via SatelliteDates
 
     if shapeId in polyList:
         return True
@@ -705,13 +707,14 @@ def prepareGeoJSON():
 
     # Process each polygon
     print("Processing polygons...\n")
-    for polygon in polygonList:
+    unprocessedList = []
+    for polygon in polygonList: ##polygonList is from CSV. Extremely unclear secret variables!
 
         # Get the shape ID of the current polygon
         shapeId = polygon[0]
 
         # Check if we want to process the current polygon with that shapeId
-        if processPolygonCheck(shapeId):
+        if processPolygonCheck(int(shapeId)):
 
             # Process a polygon
             try:
@@ -726,13 +729,17 @@ def prepareGeoJSON():
 
             # After each polygon is processed display an update message
             displayUpdateMessage()
+        else:
+            unprocessedList.append(shapeId)
 
     # After all polygons are processed display a complete message
+    print("The following polygon ids were not processed as they were not in the allowed list for the selected date:",unprocessedList)
     displayCompleteMessage()
 
 #=======================================================================================
 # LET'S ACTUALLY RUN IT!
 
-prepareGeoJSON()
+if __name__ == '__main__': #necessary if anyone might want to import this script (ex: to use help(Prepare_GeoJSON_PEI), for testing, to access/reuse functions) without running it
+    prepareGeoJSON()
 
-print("==================================================================================\n")
+    print("==================================================================================\n")
