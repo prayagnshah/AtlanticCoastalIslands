@@ -92,10 +92,10 @@ def error(msg):
 
 #=======================================================================================
 # SET DEFAULT VALUES FOR USER INPUTS
+# These allow the script to be run with example data
 
-##DEFAULT_POLYGONS_PATH = os.path.join(os.getcwd(), 'data', 'PointsReady.csv')
-DEFAULT_POLYGONS_PATH = r"C:\Users\LChamney\Documents\GitHub\AtlanticCoastalIslands\fishnet points csv\PEI_Fishnet_Points_wDate_fewPolys.csv" ##for testing
-DEFAULT_FOLDER_NAME = "TEST_1"
+DEFAULT_POLYGONS_PATH = os.path.join(os.getcwd(),'data','Example_Fishnet_Points_1.csv')
+DEFAULT_FOLDER_NAME = "EXAMPLE_TEST_1"
 
 # Satellite Options: Any subset of ['L5','L7','L8','L9','S2'] as a list
 DEFAULT_SAT_LIST = ['S2']
@@ -107,8 +107,11 @@ DEFAULT_COLLECTION = 'C02'
 # DEFINE SATELLITE DATES ENUM AND SET THE POLYGON LIST FOR EACH DATE
 # polygon lists are allowed input csv feature ids for the given SatelliteDates option
 
-# POLYGON LIST - MAY 23, 2023
-polyList_MAY23_2023 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475]
+DEFAULT_STARTDATE = '2023-05-23'
+DEFAULT_ENDDATE = '2023-05-24'
+
+# POLYGON LIST - MAY 23, 2023 (an example date that works with Example_Fishnet_Points_1.csv)
+DEFAULT_POLYLIST = list(range(1,476)) #1 to 475 inclusive
 
 class SatelliteDates(Enum):
 
@@ -123,7 +126,7 @@ class SatelliteDates(Enum):
         self.endDate = endDate
         self.polyList = polyList
 
-    MAY23_2023 = ('2023-05-23', '2023-05-24', polyList_MAY23_2023)
+    MAY23_2023 = (DEFAULT_STARTDATE, DEFAULT_ENDDATE, DEFAULT_POLYLIST)
 
 def getUserInput(desiredInput, defaultValue, validationFunction=None):
     ## TODO: IMPROVE THE USER INPUT CHECK TO BE MORE ROBUST
@@ -269,17 +272,6 @@ def getSatelliteDateChoice():
         print("\nInvalid choice. Defaulting to [1] MAY 23, 2023.")
         return SatelliteDates.MAY23_2023
 
-#=======================================================================================
-# Function:     GET POLYGONS FROM CSV
-#
-# Description:  This function creates a list of polygons from an CSV file.
-#               Each polygon consists of its shape ID and coordinates.
-#
-# Parameters:   None. However, the path for the CSV file is one of the user inputs.
-#               For more details about the formatting of the CSV, see the README.
-#
-# Returns:      None.
-
 def validate_ExistingPath(inPath):
 	if os.path.exists(inPath):
 		return True
@@ -288,6 +280,22 @@ def validate_ExistingPath(inPath):
 		return False
 	
 def getPolygonsFromCSV(polygonCSVPath=None):
+    """
+    # Function:     GET POLYGONS FROM CSV
+    #
+    # Description:  This function creates a list of polygons from a CSV file.
+    #               Each polygon consists of its shape ID and coordinates.
+    #
+    # Parameters:   polygonCSVPath  - str. Path to CSV containing polygon vertices.
+                        Shorelines will be mapped for each polygon area.
+    #                   For more details about the formatting of the CSV, see the README.
+    #
+    # Returns:      polygonList  - list. [[shapeID, ptList],] where ptList is [[lon, lat],]
+                        ```
+                        polygonList = [['0', [['-62.59394899', '45.56531847'], ['-62.59394566', '46.02171974'], ['-62.51542156', '46.02169112'], ['-62.51550024', '45.56528993'], ['-62.59394899', '45.56531847']]],
+                                       ['1', [['-62.51550024', '45.56528993'], ['-62.51542156', '46.02169112'], ['-62.44089783', '46.02160989'], ['-62.44105187', '45.56520895'], ['-62.51550024', '45.56528993']]]]
+                        ```
+    """
     if not polygonCSVPath: polygonCSVPath = getUserInput("POLYGON LIST CSV PATH", DEFAULT_POLYGONS_PATH, validate_ExistingPath)
     polygonCSVPath = polygonCSVPath.strip('"').strip("'") #else cannot copy-paste from Windows File Explorer Copy Path
     print("CREATING POLYGON LIST FROM CSV FILE...")
@@ -327,9 +335,41 @@ def setCoastSatConfig(inputs):
     """
     # Function:     SET COASTSAT CONFIG
     #
-    # Description:  This function sets the following configuration settings for the
-    #               CoastSat toolkit:
+    # Description:  This function sets configuration settings for the
+    #               CoastSat toolkit.
     #
+    Parameters:
+    -----------
+    inputs: dict defined by coastsat with the following keys
+        'sitename': str
+            name of the site
+        'polygon': list
+            polygon containing the lon/lat coordinates to be extracted,
+            longitudes in the first column and latitudes in the second column,
+            there are 5 pairs of lat/lon with the fifth point equal to the first point:
+            ```
+            polygon = [[[151.3, -33.7],[151.4, -33.7],[151.4, -33.8],[151.3, -33.8],
+            [151.3, -33.7]]]
+            ```
+        'dates': list of str
+            list that contains 2 strings with the initial and final dates in
+            format 'yyyy-mm-dd':
+            ```
+            dates = ['1987-01-01', '2018-01-01']
+            ```
+        'sat_list': list of str
+            list that contains the names of the satellite missions to include:
+            ```
+            sat_list = ['L5', 'L7', 'L8', 'S2']
+            ```
+        'filepath_data': str
+            filepath to the directory where the images are downloaded
+        'landsat_collection': ##UNDOCUMENTED in coastsat
+    
+    Returns:
+    -----------
+    settings: dict defined by coastsat with the following keys
+    
     #               GENERAL PARAMETERS
     #
     #                   cloud_thresh     - The threshold on maximum cloud cover.
@@ -368,11 +408,7 @@ def setCoastSatConfig(inputs):
     #                   pan_off          - True to switch pansharpening off for Landsat 7,
     #                                      8, and 9 imagery.
     #
-    #               ##inputs
-    #
-    # Parameters:   None.
-    #
-    # Returns:      None.
+    #                   inputs           - the dict that was input (see Parameters)
     """
     print("Configuring CoastSat...")
     settings = {
@@ -413,10 +449,10 @@ def setCoastSatConfig(inputs):
 #
 # Returns:      None.
 
-def setGlobalInputs(inputs):
+def setGlobalInputs(inputs,foldername=None):
     print("Setting global configurations...\n")
 
-    foldername = getUserInput("FOLDER NAME", DEFAULT_FOLDER_NAME)
+    if not foldername: foldername = getUserInput("FOLDER NAME", DEFAULT_FOLDER_NAME)
     filepath = os.path.join(os.getcwd(), 'data', foldername)
     geofilepath = os.path.join(os.getcwd(), 'data', 'GEOJSON', foldername)
 
@@ -437,19 +473,20 @@ def setGlobalInputs(inputs):
 #
 # Returns:      None.
 
-def setGeoJSONPrepInputs(inputs):
+def setGeoJSONPrepInputs(inputs,dates=None,poly_list=None,sat_list=None,landsat_collection=None,download_images=None,save_jpgs=None):
     print("Setting GeoJSON prep configurations...\n")
 
     # Get values from user input
-    dateSelection = getSatelliteDateChoice()
-    dates = [dateSelection.startDate, dateSelection.endDate]
+    if not dates or not poly_list:
+        dateSelection = getSatelliteDateChoice()
+        dates = [dateSelection.startDate, dateSelection.endDate]
+        poly_list = dateSelection.polyList
     print("Selected dates:",dates)
-    poly_list = dateSelection.polyList
     print("Number of polygons to process: {}\n".format(len(poly_list))) ##incorrect; depends on CSV
-    sat_list = getUserInput("SATELLITE LIST", DEFAULT_SAT_LIST)
-    landsat_collection = getUserInput("COLLECTION", DEFAULT_COLLECTION) ##does it make sense to use both landsat and sentinel? how do these params interact?
-    download_images = getUserYesOrNo("DOWNLOAD IMAGES FROM GEE")
-    save_jpgs = getUserYesOrNo("SAVE JPGS")
+    if not sat_list: sat_list = getUserInput("SATELLITE LIST", DEFAULT_SAT_LIST)
+    if not landsat_collection: landsat_collection = getUserInput("COLLECTION", DEFAULT_COLLECTION) ##does it make sense to use both landsat and sentinel? how do these params interact?
+    if download_images is None: download_images = getUserYesOrNo("DOWNLOAD IMAGES FROM GEE")
+    if save_jpgs is None: save_jpgs = getUserYesOrNo("SAVE JPGS")
 
     # Set inputs
     geoJSONPrepInputs = { 'dates': dates, ##used by coastsat retrieve_images etc
@@ -464,7 +501,7 @@ def setGeoJSONPrepInputs(inputs):
     print("GeoJSON prep configurations ready to go!")
 
 def setCurrPolyInputs(projectName, shapeId, polyCoords, inputs):
-    """#=======================================================================================
+    """
     # Function:     SET CURRENT POLYGON INPUTS
     #
     # Description:  This function sets the coastsat inputs specific to the current polygon.
@@ -706,17 +743,19 @@ def processPolygonCheck(shapeId, polyList):
     else:
         return False
 
-#=======================================================================================
-# Function:     PROCESS POLYGON
-#
-# Description:  This function processes a single polygon to produce a GeoJSON file.
-#
-# Parameters:   shapeId     - The shape ID of the polygon.
-#               coords      - The coordinates of the polygon
-#
-# Returns:      None.
-
 def processPolygon(shapeId, coords, settings, inputs): ##no need for both settings and coastsat inputs
+    """
+    # Function:     PROCESS POLYGON
+    #
+    # Description:  This function processes a single polygon to produce a GeoJSON file.
+    #
+    # Parameters:   shapeId     - The shape ID of the polygon.
+    #               coords      - The coordinates of the polygon
+                    settings    - dict defined by coastsat
+                    inputs      - dict. Catchall for various params ##TO BE MODIFIED
+    #
+    # Returns:      None.
+    """
     print(">>>>>>>>>>>>>>>>>>>>>> PROCESSING POLYGON: [{}] >>>>>>>>>>>>>>>>>>>>>>\n".format(shapeId))
     setCurrPolyInputs(inputs['foldername'], shapeId, coords, inputs)
     metadata = retrieveImages(inputs, inputs['download_images'])
@@ -770,30 +809,55 @@ def displayCompleteMessage(polySuccessCount, polygonsRemaining, polyErrs, procSt
     print("|   Total run time:              ",datetime.now()-startTime)
     print("|===================================================================\n")
 
-#=======================================================================================
-# Function:     PREPARE GEOJSON
-#
-# Description:  This function prepares GeoJSON files of the coastline using the
-#               CoastSat toolkit. All of the resulting GeoJSON files will be stored
-#               in one folder.
-#
-# Parameters:   None.
-#
-# Returns:      None.
-
-def prepareGeoJSON():
+def prepareGeoJSON(polygonCSVPath=None, foldername=None, sat_list=None, landsat_collection=None, dates=None, poly_list=None, download_images=None, save_jpgs=None):
+    """
+    # Function:     PREPARE GEOJSON
+    #
+    # Description:  This function prepares GeoJSON files of the coastline using the
+    #               CoastSat toolkit. All of the resulting GeoJSON files will be stored
+    #               in one folder.
+    #
+    Parameters:
+    -----------
+    polygonCSVPath: str
+        Path to CSV containing polygon vertices. Shorelines will be mapped for each polygon area.
+        For more details about the formatting of the CSV, see the README.
+    foldername: str
+        Name representing this run session. Will be used for ##TO FILL OUT
+    sat_list: list of str. Any subset of ['L5','L7','L8','L9','S2'] as a list
+        list that contains the names of the satellite missions to include:
+        ```
+        sat_list = ['L5', 'L7', 'L8', 'S2']
+        ```
+    landsat_collection: str. 'C01' or 'C02'
+        ##UNDOCUMENTED in coastsat. How does it interact with S2?
+    dates: list of str
+        list that contains 2 strings with the initial and final dates in
+        format 'yyyy-mm-dd':
+        ```
+        dates = ['1987-01-01', '2018-01-01']
+        ```
+    poly_list: list
+        Allowed polygon ids. Lets you process a subset of CSV polygon IDs. 
+        Will only process features from the CSV which are in this list.
+    download_images: bool
+        Whether to download images from GEE or look for already-downloaded local images.
+    save_jpgs: bool
+        Whether to use coastsat's sav_jpg function to 'Save a .jpg image for all the images contained in metadata.'
+        
+    Returns:
+    -----------
+    """
     startTime = datetime.now() #start when the main function you are timing is called, not when the script is imported (which is when globals are set)
     
-    # Acquire and validate user inputs
-    
-
-    # Set up
+    # Acquire and validate user inputs, including CSV polygons
     inputs = {}
-    setGlobalInputs(inputs)
-    polygonList = getPolygonsFromCSV(inPolygonCSV)
-    setGeoJSONPrepInputs(inputs)
-    settings = setCoastSatConfig(inputs)
-
+    setGlobalInputs(inputs,foldername) #will ask for user input if necessary
+    polygonList = getPolygonsFromCSV(polygonCSVPath) #will ask for user input if necessary
+    ##CHANGE SO NOT ALL VARIABLES IN CATCHALL DICT 'inputs'
+    setGeoJSONPrepInputs(inputs,dates,poly_list,sat_list,landsat_collection,download_images,save_jpgs) #will ask for user input if necessary
+    settings = setCoastSatConfig(inputs) ##DO NOT hand this function non-coastsat variables in inputs!!
+    
     # Variables to track progress
     polySuccessCount = 0
     polyErrs = []
@@ -832,11 +896,27 @@ def prepareGeoJSON():
     print("The following polygon ids were not processed as they were not in the allowed list for the selected date:",unprocessedList)
     displayCompleteMessage(polySuccessCount, polygonsRemaining, polyErrs, procStartTime, startTime)
 
-
 #=======================================================================================
 
-if __name__ == '__main__': #necessary if anyone might want to import this script (ex: to use help(Prepare_GeoJSON_PEI), for testing, to access/reuse functions) without running it
+if __name__ == '__main__': #necessary if anyone might want to import this script without running it (ex: to use help(Prepare_GeoJSON), for testing, to access/reuse functions in per-AOI wrapper scripts)
     # LET'S ACTUALLY RUN IT!
-    prepareGeoJSON()
+    # CHOOSE ONE OPTION for how to run the script
+     
+    # OPTION 1: enter input params from command line
+    ##prepareGeoJSON()
+    
+    # OPTION 2: set params here. Run from within a code editor or on command line using these defaults
+    prepareGeoJSONParams = {
+        'polygonCSVPath': DEFAULT_POLYGONS_PATH,
+        'foldername': DEFAULT_FOLDER_NAME, ##rename to something like projectname, runname?? Leaving for now for historical clarity
+        'sat_list': DEFAULT_SAT_LIST,
+        'landsat_collection': DEFAULT_COLLECTION,
+        'dates': [DEFAULT_STARTDATE, DEFAULT_ENDDATE],
+        'poly_list': DEFAULT_POLYLIST,
+        'download_images': False,
+        'save_jpgs': False
+    }
+    prepareGeoJSON(**prepareGeoJSONParams)
+    ##do Enum per-AOI SatelliteDates options in wrapper; send simple params to prepareGeoJSON
 
     print("==================================================================================\n")
